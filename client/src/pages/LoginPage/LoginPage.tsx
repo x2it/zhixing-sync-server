@@ -105,7 +105,7 @@ const LoginPage: React.FC = () => {
             <div className="w-14 h-14 rounded-xl bg-amber-600 flex items-center justify-center mb-4">
               <Users className="w-7 h-7 text-white" />
             </div>
-            <h1 className="text-2xl font-semibold text-slate-900">知行朋友圈</h1>
+            <h1 className="text-2xl font-semibold text-slate-900">知行同步助手</h1>
             <p className="text-sm text-slate-500 mt-1">
               {mode === 'login' ? '连接 · 记录 · 同步' : '使用恢复码重置登录密码'}
             </p>
@@ -280,7 +280,7 @@ const LoginPage: React.FC = () => {
         </div>
 
         <p className="text-xs text-slate-400 text-center mt-6">
-          © 2026 知行朋友圈
+          © 2026 知行工作室
         </p>
       </div>
     </div>

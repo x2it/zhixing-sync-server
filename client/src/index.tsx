@@ -16,16 +16,16 @@ const CLIENT_BASE_PATH = process.env.CLIENT_BASE_PATH || '/';
 // 平台构建会把 <title> 换成 {{appName}} 占位符，且 toolkit 的 useAppInfo
 // 会在 mount 后把 title 覆盖为平台应用名。这里先纠正一次，
 // 再用 MutationObserver 拦截平台对 title 的覆盖（仅当被改回平台名时纠正），
-// Layout 按页面设置的「页面名 · 知行朋友圈」不受影响。
-if (document.title !== '知行朋友圈') {
-  document.title = '知行朋友圈';
+// Layout 按页面设置的「页面名 · 知行同步助手」不受影响。
+if (document.title !== '知行同步助手') {
+  document.title = '知行同步助手';
 }
 try {
   const titleEl = document.querySelector('title');
   if (titleEl) {
     new MutationObserver(() => {
       if (document.title === '妙搭应用') {
-        document.title = '知行朋友圈';
+        document.title = '知行同步助手';
       }
     }).observe(titleEl, { subtree: true, childList: true, characterData: true });
   }

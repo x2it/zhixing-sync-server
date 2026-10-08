@@ -173,12 +173,12 @@ const Layout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const currentTitle = pageTitleMap[location.pathname] ?? '知行朋友圈';
+  const currentTitle = pageTitleMap[location.pathname] ?? '知行同步助手';
 
   useEffect(() => {
     // 按页面动态 title；首页不带前缀
     document.title =
-      location.pathname === '/dashboard' ? '知行朋友圈' : `${currentTitle} · 知行朋友圈`;
+      location.pathname === '/dashboard' ? '知行同步助手' : `${currentTitle} · 知行同步助手`;
   }, [location.pathname, currentTitle]);
 
   // 路由变化时自动收起所有浮层，避免"点了没反应/遮住内容"
@@ -225,7 +225,7 @@ const Layout: React.FC = () => {
             </div>
             {!collapsed && (
               <span className="text-sm font-medium text-foreground whitespace-nowrap truncate">
-                知行朋友圈
+                知行同步助手
               </span>
             )}
           </div>
@@ -322,7 +322,7 @@ const Layout: React.FC = () => {
                 <div className="w-6 h-6 rounded bg-primary flex items-center justify-center shrink-0">
                   <Users className="w-3.5 h-3.5 text-primary-foreground" strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-medium text-foreground truncate">知行朋友圈</span>
+                <span className="text-sm font-medium text-foreground truncate">知行同步助手</span>
               </div>
             </div>
             <ThemeToggle compact />
@@ -384,7 +384,7 @@ const Layout: React.FC = () => {
                 <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4 text-primary-foreground" strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-medium text-foreground truncate">知行朋友圈</span>
+                <span className="text-sm font-medium text-foreground truncate">知行同步助手</span>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
