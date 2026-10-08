@@ -215,11 +215,11 @@ const TagsPage: React.FC = () => {
 
   if (loading && tags.length === 0) {
     return (
-      <div className="space-y-6 p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">标签管理</h2>
-            <p className="text-sm text-slate-600 mt-1">按分组组织人脉圈层</p>
+      <div className="space-y-6 p-4 md:p-6">
+        <div className="page-head">
+          <div className="min-w-0">
+            <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>标签管理</h2>
+            <p className="text-sm text-muted-foreground mt-1">按分组组织人脉圈层</p>
           </div>
         </div>
         <div className="text-sm text-slate-400">加载中...</div>
@@ -228,18 +228,18 @@ const TagsPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 p-4 md:p-6">
       {/* 页面标题 + 对齐模板 + 新增按钮 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold text-slate-900">标签管理</h2>
-          <p className="text-sm text-slate-600 mt-1">
+      <div className="page-head">
+        <div className="min-w-0">
+          <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>标签管理</h2>
+          <p className="text-sm text-muted-foreground mt-1">
             {activeTemplate
               ? `当前方案「${activeTemplate.name}」· ${activeTemplate.identityTags?.length ?? 0} 身份 + ${activeTemplate.attributeTags?.length ?? 0} 属性标签`
               : '按分组管理联系人标签'}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="page-head-actions">
           {activeTemplate && (
             <Button
               variant="outline"

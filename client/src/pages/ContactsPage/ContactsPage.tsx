@@ -460,9 +460,9 @@ const ContactsPage: React.FC = () => {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-2xl font-semibold text-slate-900">联系人</h2>
-        <p className="text-sm text-slate-600 mt-1">
+      <div className="min-w-0">
+        <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>联系人</h2>
+        <p className="text-sm text-muted-foreground mt-1">
           共 {total} 位联系人
         </p>
       </div>
@@ -531,11 +531,7 @@ const ContactsPage: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleTierClick(opt.value as ContactTier | '')}
-                 className={`px-3 py-3 md:py-1.5 text-xs rounded-md whitespace-nowrap transition-colors ${
-                  tier === opt.value
-                    ? 'bg-amber-600 text-white font-medium'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
+                 className={`chip ${tier === opt.value ? 'chip-on' : ''}`}
               >
                 {opt.label}
               </button>
@@ -706,11 +702,7 @@ const ContactsPage: React.FC = () => {
               <button
                 key={opt.value}
                 onClick={() => handleFollowupStatusChange(opt.value)}
-                className={`px-3 py-3 md:py-1.5 text-xs rounded-md whitespace-nowrap border transition-colors ${
-                  followupStatus === opt.value
-                    ? 'bg-red-600 text-white border-red-600 font-medium'
-                    : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                }`}
+                className={`chip ${followupStatus === opt.value ? 'chip-on-warn' : ''}`}
               >
                 {opt.label}
               </button>

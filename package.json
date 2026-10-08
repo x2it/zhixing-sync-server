@@ -16,7 +16,7 @@
     "build": "./scripts/build.sh",
     "build:prod": "npm run build:server && npm run build:client",
     "build:server": "NODE_ENV=production nest build",
-    "build:client": "NODE_ENV=production vite build --config vite.config.ts",
+    "build:client": "NODE_ENV=production vite build --config vite.config.ts && bash scripts/postbuild-title.sh",
     "start": "NODE_ENV=production node main.js",
     "eslint": "eslint . --quiet",
     "stylelint": "stylelint client/src/**/*.css --quiet",

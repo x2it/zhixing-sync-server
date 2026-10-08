@@ -657,7 +657,10 @@ const ApiDocsPage: React.FC = () => {
   return (
     <div className="space-y-4 max-w-3xl mx-auto">
       <div className="space-y-1">
-        <h2 className="text-xl font-medium text-foreground">API 接入</h2>
+        <h2 className="page-title">
+          <span className="text-primary/55 select-none" aria-hidden="true">$</span>
+          API 接入
+        </h2>
         <p className="text-xs text-muted-foreground">
           通过 API Key 或 Skill 文件对接智能体，自动化管理人脉数据
         </p>

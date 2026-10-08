@@ -19,8 +19,8 @@
 
 ```bash
 # 1. 拉代码
-git clone https://github.com/x2it/zhixing-sync-server.git
-cd zhixing-sync-server
+git clone https://github.com/x2it/zhixing-circle.git
+cd zhixing-circle
 
 # 2. 装依赖
 npm install
@@ -118,7 +118,7 @@ bash scripts/add-user.sh admin '新密码' --reset-pw      # 重置密码
 ```
 ✅ 账号已创建
    用户名   ：admin
-   API Key  ：zx_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   API Key  ：zx_8f62ca00e13a1a829a3bdd20219a0af1
 ```
 
 也可以手工操作（密码用 bcrypt 哈希，cost=10，与 auth.service 保持一致）：

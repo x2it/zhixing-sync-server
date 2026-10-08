@@ -1,6 +1,8 @@
-# 知行同步助手 · Zhixing Circle（服务端 002B Web）
+# 知行朋友圈 · Zhixing Circle
 
-> **让每一段人脉关系，都被认真对待。**
+> **连接 · 记录 · 同步**
+>
+> **Only the next call.** — 专注下一通电话，其余交给系统。
 >
 > 个人人脉管理工具 —— 分层管理联系人、标签化运营关系、云端同步多端数据。
 
@@ -13,7 +15,7 @@
 
 ## 这是什么
 
-知行同步助手是一套 **App + Web + 云端** 的个人人脉管理方案，面向房产经纪人、销售、自由职业者等需要长期精细化运营人脉的人群。
+知行朋友圈是一套 **App + Web + 云端** 的个人人脉管理方案，面向房产经纪人、销售、自由职业者等需要长期精细化运营人脉的人群。
 
 它基于 **「ABC 客户分层 + 弱关系维护」** 方法论构建：
 
@@ -24,7 +26,7 @@
 - **云端同步** —— 手机端与 Web 端数据实时互通
 - **数据治理** —— 重复检测合并、通讯记录去重、时光机回滚
 
-> 本项目是 **服务端 + Web 前端**。Android 手机端见 [zhixing-sync-assistant](https://github.com/x2it/zhixing-sync-assistant)。
+> 本项目是 **服务端 + Web 前端**。Android 手机端见 [zhixing-circle-app](https://github.com/x2it/zhixing-circle-app)（规划中）。
 
 ---
 
@@ -133,8 +135,8 @@
 
 ```bash
 # 1. 克隆
-git clone https://github.com/x2it/zhixing-sync-server.git
-cd zhixing-sync-server
+git clone https://github.com/x2it/zhixing-circle.git
+cd zhixing-circle
 
 # 2. 安装依赖
 npm install
@@ -176,7 +178,7 @@ npm start             # 启动服务
 ## 项目结构
 
 ```
-zhixing-sync-server/
+zhixing-circle/
 ├── client/                        # Web 前端
 │   └── src/
 │       ├── pages/                 # 页面（仪表盘/联系人/沟通/标签/朋友圈/数据/模板）
@@ -225,20 +227,19 @@ zhixing-sync-server/
 
 ---
 
-## 与旧版 TMA 的关系
+## 与 TMA 的关系
 
-[**TMA（电话营销助理）**](https://github.com/x2it/TMA) 是知行同步助手的前身 —— 一个纯单机版 Android 电销助手，专注「拨号 → 登记 → 下一位」的外呼作业闭环，数据全部本地存储，**已停止更新并归档**。
+[**TMA（电话营销助理）**](https://github.com/x2it/TMA) 是同一作者的另一个开源项目 —— 面向房产经纪人的 Android 电销助手，专注「拨号 → 登记 → 下一位」的外呼作业闭环，数据全部本地存储。
 
-知行同步助手是 TMA 的官方云端继任版本：保留了拨号跟进的核心体验，同时增加了云端同步、通讯录/短信/通话双向备份、标签分层体系和 Web 管理端。
+两个项目**互补而非替代**：
 
-| | TMA（已归档） | 知行同步助手（当前） |
+| | TMA | 知行朋友圈 |
 |---|---|---|
-| 定位 | 单机电销作业工具 | 人脉关系运营 + 云端同步 |
+| 定位 | 电销作业工具 | 人脉关系运营 |
 | 形态 | Android 原生 App | App + Web + 云端 |
-| 数据 | 全部本地 | 云端同步，多端互通 |
-| 状态 | 停止更新 | 活跃维护 |
+| 数据 | 全部本地 | 云端同步 |
 
-> 老用户如需继续使用纯单机方案可参考 TMA，但新项目和新功能均在知行同步助手上开发。
+> 做电销外呼用 **TMA**，做人脉/客户关系运营用 **知行朋友圈**。
 
 ---
 

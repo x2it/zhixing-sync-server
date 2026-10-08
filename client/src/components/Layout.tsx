@@ -11,9 +11,6 @@ import {
   LogOut,
   MessageCircle,
   MessagesSquare,
-  Sun,
-  Moon,
-  Sparkles,
   Palette,
   MoreHorizontal,
   X,
@@ -25,10 +22,6 @@ import {
 } from 'lucide-react';
 import ChangePasswordDialog from '@client/src/components/ChangePasswordDialog';
 import { useAuth } from '@client/src/contexts/AuthContext';
-import { useTheme } from '@client/src/contexts/ThemeContext';
-import { Popover, PopoverTrigger, PopoverContent } from '@client/src/components/ui/popover';
-import { Check } from 'lucide-react';
-import type { ThemeMode } from '@client/src/contexts/ThemeContext';
 import { cn } from '@/lib/utils';
 
 interface NavItem {
@@ -67,100 +60,39 @@ const pageTitleMap: Record<string, string> = {
   '/api-docs': 'API 接入',
 };
 
-const themeMeta: Record<string, { icon: React.FC<{ className?: string; strokeWidth?: number }>; label: string }> = {
-  light: { icon: Sun, label: '明亮' },
-  dark: { icon: Moon, label: '夜间' },
-  warm: { icon: Sparkles, label: '暖阳' },
-};
+/** 终端标识：ASCII 艺术字 + 光标块，替代原来的图标方块 */
+const AsciiMark: React.FC<{ className?: string }> = ({ className }) => (
+  <span
+    className={cn(
+      'font-mono font-bold leading-none text-primary select-none',
+      className,
+    )}
+    style={{ letterSpacing: '-0.05em' }}
+  >
+    {'>_'}
+  </span>
+);
 
-const THEME_SWATCHES: Record<string, string[]> = {
-  light: ['#ffffff', '#f1f5f9', '#334155'],
-  dark: ['#0f172a', '#1e293b', '#94a3b8'],
-  warm: ['#fdf3e3', '#f3e3c8', '#92400e'],
-};
+/** 终端光标：闪烁的小方块，纯装饰 */
+const Cursor: React.FC<{ className?: string }> = ({ className }) => (
+  <span
+    className={cn('inline-block w-2 h-3.5 bg-primary align-middle term-cursor', className)}
+    aria-hidden="true"
+  />
+);
 
-const THEME_TIPS: Record<string, string> = {
-  light: '白天办公，清爽高对比',
-  dark: '暗光环境，护眼低刺激',
-  warm: '暖色调，温和不刺眼',
-};
-
-/** 主题切换：点开调色盘一键直达目标主题（替代旧的三态循环，少点几次） */
-const ThemeToggle: React.FC<{ compact?: boolean }> = ({ compact }) => {
-  const { mode, setMode } = useTheme();
-  const [open, setOpen] = useState(false);
-  const meta = themeMeta[mode] ?? themeMeta.light;
-  const Icon = meta.icon;
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          className={cn(
-            'flex items-center gap-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors',
-            compact ? 'px-2 py-1.5 text-xs' : 'px-2.5 py-1.5 text-xs',
-          )}
-          title="选择主题"
-          aria-label="选择主题"
-        >
-          <Icon className="w-4 h-4" strokeWidth={1.5} />
-          {!compact && <span className="hidden sm:inline">{meta.label}</span>}
-        </button>
-      </PopoverTrigger>
-      <PopoverContent align="end" className="w-60 p-2">
-        <p className="text-xs font-medium text-muted-foreground px-2 pt-1 pb-2">主题</p>
-        <div className="space-y-0.5">
-          {(Object.keys(themeMeta) as Array<keyof typeof themeMeta>).map((key) => {
-            const m = themeMeta[key];
-            const OptIcon = m.icon;
-            const active = key === mode;
-            return (
-              <button
-                key={key}
-                type="button"
-                className={cn(
-                  'w-full flex items-center gap-2.5 px-2 py-2 rounded-md text-sm transition-colors',
-                  active ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-accent text-foreground',
-                )}
-                onClick={() => {
-                  setMode(key as ThemeMode);
-                  setOpen(false);
-                }}
-              >
-                <OptIcon className="w-4 h-4" strokeWidth={1.5} />
-                <span className="flex-1 text-left leading-tight">
-                  {m.label}
-                  <span className="block text-[10px] text-muted-foreground font-normal">
-                    {THEME_TIPS[key]}
-                  </span>
-                </span>
-                <span className="flex gap-0.5 mr-1">
-                  {(THEME_SWATCHES[key] ?? []).map((c) => (
-                    <span
-                      key={c}
-                      className="w-3 h-3 rounded-full border border-black/10"
-                      style={{ backgroundColor: c }}
-                    />
-                  ))}
-                </span>
-                {active && <Check className="w-4 h-4" strokeWidth={2} />}
-              </button>
-            );
-          })}
-        </div>
-      </PopoverContent>
-    </Popover>
-  );
-};
-
-/** 面包屑：多终端自适应（移动端只显示当前页，桌面显示完整路径） */
+/** 面包屑：终端路径风格 ~/contacts/...（移动端只显示当前页） */
 const Breadcrumb: React.FC<{ current: string; className?: string }> = ({ current, className }) => (
-  <nav aria-label="面包屑" className={cn('flex items-center gap-1 text-xs text-muted-foreground min-w-0', className)}>
-    <NavLink to="/dashboard" className="hover:text-foreground transition-colors shrink-0">
-      首页
+  <nav
+    aria-label="面包屑"
+    className={cn('flex items-center gap-1.5 text-[11px] text-muted-foreground min-w-0 font-mono', className)}
+  >
+    <span className="text-primary/70 select-none">~</span>
+    <NavLink to="/dashboard" className="hover:text-primary transition-colors shrink-0">
+      home
     </NavLink>
-    <ChevronRight className="w-3 h-3 shrink-0 opacity-60" strokeWidth={1.5} />
-    <span className="text-foreground font-medium truncate">{current}</span>
+    <ChevronRight className="w-3 h-3 shrink-0 opacity-50" strokeWidth={1.5} />
+    <span className="text-primary truncate">{current}</span>
   </nav>
 );
 
@@ -176,9 +108,11 @@ const Layout: React.FC = () => {
   const currentTitle = pageTitleMap[location.pathname] ?? '知行同步助手';
 
   useEffect(() => {
-    // 按页面动态 title；首页不带前缀
+    // 按页面动态 title；工作台页对齐 APP 端命名「知行同步助手 // 工作台」
     document.title =
-      location.pathname === '/dashboard' ? '知行同步助手' : `${currentTitle} · 知行同步助手`;
+      location.pathname === '/dashboard'
+        ? '知行同步助手 // 工作台'
+        : `${currentTitle} · 知行同步助手`;
   }, [location.pathname, currentTitle]);
 
   // 路由变化时自动收起所有浮层，避免"点了没反应/遮住内容"
@@ -211,28 +145,29 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
-      {/* Sidebar — 桌面端（Win11 亚克力材质） */}
+    <div className="flex min-h-screen bg-background text-foreground font-mono">
+      {/* Sidebar — 桌面端（终端风格：无毛玻璃，方角，扫描线） */}
       <aside
-        className={`hidden md:flex flex-col bg-sidebar win-acrylic border-r border-sidebar-border transition-all duration-200 sticky top-0 self-start h-screen z-30 ${
-          collapsed ? 'w-14' : 'w-[190px]'
+        className={`hidden md:flex flex-col bg-sidebar border-r border-sidebar-border transition-all duration-200 sticky top-0 self-start h-screen z-30 ${
+          collapsed ? 'w-12' : 'w-[210px]'
         }`}
       >
-        <div className="flex items-center h-14 px-3 border-b border-sidebar-border justify-between">
-          <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
-            <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center flex-shrink-0">
-              <Users className="w-4 h-4 text-primary-foreground" strokeWidth={1.5} />
-            </div>
+        <div className="flex items-center h-12 px-3 border-b border-sidebar-border justify-between">
+          <div className="flex items-center gap-1.5 flex-shrink-0 min-w-0">
+            <AsciiMark className="text-base" />
             {!collapsed && (
-              <span className="text-sm font-medium text-foreground whitespace-nowrap truncate">
-                知行同步助手
-              </span>
+              <>
+                <span className="text-[13px] text-foreground whitespace-nowrap truncate tracking-tight">
+                  知行同步助手
+                </span>
+                <Cursor className="h-3 w-1.5" />
+              </>
             )}
           </div>
           {!collapsed && (
             <button
               onClick={() => setCollapsed(true)}
-              className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              className="p-1 text-muted-foreground hover:text-primary transition-colors"
               title="收起侧边栏"
             >
               <PanelLeftClose className="w-4 h-4" strokeWidth={1.5} />
@@ -240,7 +175,7 @@ const Layout: React.FC = () => {
           )}
         </div>
 
-        <nav className="flex-1 py-3 px-1.5 space-y-0.5">
+        <nav className="flex-1 py-2 px-1.5 space-y-px">
           {navItems.map((item: NavItem) => {
             const Icon = item.icon;
             return (
@@ -248,15 +183,15 @@ const Layout: React.FC = () => {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `win-nav-item flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors ${
+                  `win-nav-item flex items-center gap-2 px-2.5 py-1.5 text-[13px] transition-colors ${
                     isActive
-                      ? 'win-nav-active bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                      : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+                      ? 'win-nav-active bg-sidebar-accent text-sidebar-accent-foreground'
+                      : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground'
                   } ${collapsed ? 'justify-center' : ''}`
                 }
                 title={collapsed ? item.label : undefined}
               >
-                <Icon className="w-4.5 h-4.5 flex-shrink-0" strokeWidth={1.5} />
+                <Icon className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
                 {!collapsed && <span>{item.label}</span>}
               </NavLink>
             );
@@ -264,34 +199,38 @@ const Layout: React.FC = () => {
           {collapsed && (
             <button
               onClick={() => setCollapsed(false)}
-              className="w-full flex items-center justify-center px-2.5 py-2 rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+              className="w-full flex items-center justify-center px-2.5 py-1.5 text-muted-foreground hover:text-primary transition-colors"
               title="展开侧边栏"
             >
-              <PanelLeftOpen className="w-4.5 h-4.5" strokeWidth={1.5} />
+              <PanelLeftOpen className="w-4 h-4" strokeWidth={1.5} />
             </button>
           )}
         </nav>
 
-        <div className="px-1.5 pb-3 pt-2 border-t border-sidebar-border space-y-0.5">
+        <div className="px-1.5 pb-3 pt-2 border-t border-sidebar-border space-y-px">
           {!collapsed && user && (
-            <div className="px-2.5 py-1.5 text-xs text-sidebar-foreground/50 truncate" title={user.username}>
+            <div
+              className="px-2.5 py-1 text-[11px] text-sidebar-foreground/45 truncate"
+              title={user.username}
+            >
+              <span className="text-primary">@</span>
               {user.displayName || user.username}
             </div>
           )}
           <button
             onClick={() => setPwdOpen(true)}
-            className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors"
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 text-[13px] text-sidebar-foreground/55 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground transition-colors"
             title={collapsed ? '修改密码' : undefined}
           >
-            <KeyRound className="w-4.5 h-4.5 flex-shrink-0" strokeWidth={1.5} />
+            <KeyRound className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
             {!collapsed && <span>修改密码</span>}
           </button>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm text-sidebar-foreground/60 hover:bg-destructive/10 hover:text-destructive transition-colors"
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 text-[13px] text-sidebar-foreground/55 hover:bg-destructive/10 hover:text-destructive transition-colors"
             title={collapsed ? '退出登录' : undefined}
           >
-            <LogOut className="w-4.5 h-4.5 flex-shrink-0" strokeWidth={1.5} />
+            <LogOut className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
             {!collapsed && <span>退出登录</span>}
           </button>
         </div>
@@ -299,35 +238,34 @@ const Layout: React.FC = () => {
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Header — 桌面端（含面包屑，亚克力） */}
-        <header className="hidden md:flex h-14 bg-background/70 win-acrylic border-b border-border px-5 items-center justify-between gap-4 sticky top-0 z-30">
+        {/* Header — 桌面端（终端状态栏：路径提示 + 在线状态） */}
+        <header className="hidden md:flex h-10 bg-background border-b border-border px-4 items-center justify-between gap-4 sticky top-0 z-30">
           <Breadcrumb current={currentTitle} />
-          <div className="flex items-center gap-2 shrink-0">
-            <ThemeToggle />
+          <div className="flex items-center gap-2 shrink-0 text-[11px] text-muted-foreground">
+            <span className="hidden lg:inline">sys.status:</span>
+            <span className="text-primary">ONLINE</span>
+            <span className="inline-block w-1.5 h-1.5 bg-primary term-cursor" aria-hidden="true" />
           </div>
         </header>
 
-        {/* Header — 移动端：三明治菜单 + 品牌 + 主题切换，下方面包屑（亚克力） */}
-        <header className="md:hidden sticky top-0 z-30 bg-background/85 win-acrylic border-b border-border">
-          <div className="flex h-12 px-3 items-center justify-between gap-2">
+        {/* Header — 移动端：三明治菜单 + 品牌，下方面包屑 */}
+        <header className="md:hidden sticky top-0 z-30 bg-background border-b border-border">
+          <div className="flex h-11 px-3 items-center justify-between gap-2">
             <div className="flex items-center gap-1 min-w-0">
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="p-2 -ml-1 rounded-md text-foreground hover:bg-accent transition-colors"
+                className="p-2 -ml-1 text-foreground hover:text-primary transition-colors"
                 aria-label="打开菜单"
               >
                 <Menu className="w-5 h-5" strokeWidth={1.5} />
               </button>
-              <div className="flex items-center gap-2 min-w-0">
-                <div className="w-6 h-6 rounded bg-primary flex items-center justify-center shrink-0">
-                  <Users className="w-3.5 h-3.5 text-primary-foreground" strokeWidth={1.5} />
-                </div>
-                <span className="text-sm font-medium text-foreground truncate">知行同步助手</span>
+              <div className="flex items-center gap-1.5 min-w-0">
+                <AsciiMark className="text-sm" />
+                <span className="text-[13px] text-foreground truncate">知行同步助手</span>
               </div>
             </div>
-            <ThemeToggle compact />
           </div>
-          <div className="px-4 pb-2">
+          <div className="px-4 pb-1.5">
             <Breadcrumb current={currentTitle} />
           </div>
         </header>
@@ -337,8 +275,8 @@ const Layout: React.FC = () => {
           <Outlet />
         </main>
 
-        {/* Bottom Navigation — 移动端（亚克力） */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background/85 win-acrylic border-t border-border z-40 pb-[env(safe-area-inset-bottom)]">
+        {/* Bottom Navigation — 移动端 */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-border z-40 pb-[env(safe-area-inset-bottom)]">
           <div className="flex justify-around items-stretch h-14">
             {bottomNavItems.map((item: NavItem) => {
               const Icon = item.icon;
@@ -379,12 +317,11 @@ const Layout: React.FC = () => {
             aria-hidden="true"
           />
           <div className="absolute left-0 top-0 bottom-0 w-[78%] max-w-[300px] bg-sidebar border-r border-sidebar-border flex flex-col shadow-xl">
-            <div className="flex items-center justify-between h-14 px-4 border-b border-sidebar-border">
-              <div className="flex items-center gap-2 min-w-0">
-                <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center shrink-0">
-                  <Users className="w-4 h-4 text-primary-foreground" strokeWidth={1.5} />
-                </div>
-                <span className="text-sm font-medium text-foreground truncate">知行同步助手</span>
+            <div className="flex items-center justify-between h-12 px-4 border-b border-sidebar-border">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <AsciiMark className="text-sm" />
+                <span className="text-[13px] text-foreground truncate">知行同步助手</span>
+                <Cursor className="h-3 w-1.5" />
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}

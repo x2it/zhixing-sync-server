@@ -240,12 +240,12 @@ const MomentsPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 p-4 md:p-6">
       {/* 页头 */}
-      <div className="flex items-start justify-between gap-3 flex-wrap">
+      <div className="page-head items-start">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900">朋友圈分组</h2>
-          <p className="text-sm text-slate-600 mt-1">
+          <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>朋友圈分组</h2>
+          <p className="text-sm text-muted-foreground mt-1 break-words">
             圈层自动跟随当前使用的模板，也可以按标签自定义分组
           </p>
         </div>

@@ -32,24 +32,8 @@ body {
   overflow-x: clip;
 }
 
-/* 滚动条：全局隐藏，保留滚动能力（PC 端默认无滚动条） */
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-
-* {
-  scrollbar-width: none;
-  scrollbar-color: transparent transparent;
-}
+/* 滚动条样式在 tailwind-theme.css 中统一定义（终端细条），
+   此处不再覆盖为隐藏 */
 
 input,
 textarea,

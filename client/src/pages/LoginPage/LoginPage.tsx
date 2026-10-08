@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { Users, KeyRound, ArrowLeft } from 'lucide-react';
+import { KeyRound, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@client/src/contexts/AuthContext';
 import { recoverPassword } from '@client/src/api/auth';
 import { logger } from '@lark-apaas/client-toolkit/logger';
@@ -93,29 +93,54 @@ const LoginPage: React.FC = () => {
     setRSuccess(false);
   };
 
+  // 终端风格：方角、1px 描边、等宽、聚焦磷光绿
   const inputCls =
-    'w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors';
-  const labelCls = 'block text-sm font-medium text-slate-700 mb-1.5';
+    'w-full px-3 py-2 bg-background border border-border text-[13px] font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors';
+  const labelCls = 'block text-[11px] text-muted-foreground mb-1.5 font-mono';
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50">
-      <div className="w-full max-w-md px-6">
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-xl bg-amber-600 flex items-center justify-center mb-4">
-              <Users className="w-7 h-7 text-white" />
-            </div>
-            <h1 className="text-2xl font-semibold text-slate-900">知行同步助手</h1>
-            <p className="text-sm text-slate-500 mt-1">
-              {mode === 'login' ? '连接 · 记录 · 同步' : '使用恢复码重置登录密码'}
-            </p>
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md">
+        {/* 终端窗口 */}
+        <div className="bg-card border border-border">
+          {/* 标题栏 */}
+          <div className="flex items-center gap-2 px-3 h-8 border-b border-border bg-background select-none">
+            <span className="flex gap-1.5" aria-hidden="true">
+              <span className="w-2 h-2 bg-destructive/70" />
+              <span className="w-2 h-2 bg-warning/70" />
+              <span className="w-2 h-2 bg-primary/70" />
+            </span>
+            <span className="flex-1 text-center text-[11px] text-muted-foreground font-mono truncate">
+              ssh zx@zhixing-sync — 80×24
+            </span>
           </div>
 
-          {mode === 'login' ? (
+          <div className="p-6 sm:p-8">
+            {/* ASCII 标题 */}
+            <div className="mb-6">
+              <pre className="font-mono text-[10px] leading-[1.15] text-primary whitespace-pre mb-4 overflow-x-auto">{String.raw`  ┌─┐┌─┐┌┬┐┌─┐┌─┐┌─┐┌┬┐
+  │┌┘│└─┐ │ │└─┐├┬┘│ │├┤
+  │└─┘└─┘ ┴ ┴└─┐┴└─┘└─┘└─┘`}</pre>
+              <h1 className="text-lg text-foreground font-mono flex items-center gap-1.5">
+                <span className="text-primary">知行同步助手</span>
+                <span className="inline-block w-2 h-4 bg-primary term-cursor align-middle" aria-hidden="true" />
+              </h1>
+              {/* 工作台副标题与 APP 端 v2.7.13 定稿对齐：连接 · 记录 · 同步 */}
+              <p className="text-[11px] text-primary/70 mt-1.5 font-mono tracking-wide">
+                连接 · 记录 · 同步
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1 font-mono">
+                {mode === 'login'
+                  ? '// Only the next call. 专注下一通电话，其余交给系统。'
+                  : '// 使用恢复码重置登录密码'}
+              </p>
+            </div>
+
+            {mode === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label htmlFor="username" className={labelCls}>
-                  用户名
+                  <span className="text-primary">$</span> 用户名
                 </label>
                 <input
                   id="username"
@@ -125,7 +150,7 @@ const LoginPage: React.FC = () => {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setUsername(e.target.value)
                   }
-                  placeholder="请输入用户名"
+                  placeholder="username"
                   className={inputCls}
                   disabled={loading}
                 />
@@ -133,7 +158,7 @@ const LoginPage: React.FC = () => {
 
               <div>
                 <label htmlFor="password" className={labelCls}>
-                  密码
+                  <span className="text-primary">$</span> 密码
                 </label>
                 <input
                   id="password"
@@ -143,53 +168,59 @@ const LoginPage: React.FC = () => {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setPassword(e.target.value)
                   }
-                  placeholder="请输入登录密码"
+                  placeholder="••••••••"
                   className={inputCls}
                   disabled={loading}
                 />
               </div>
 
-              {error && <p className="text-sm text-red-600">{error}</p>}
+              {error && (
+                <p className="text-[12px] text-destructive font-mono">
+                  <span className="text-destructive">[!]</span> {error}
+                </p>
+              )}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 active:bg-amber-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-2 bg-primary text-primary-foreground text-[13px] font-mono hover:bg-primary/90 active:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? '登录中...' : '登录'}
+                {loading ? '认证中...' : '> 登录'}
               </button>
 
               <button
                 type="button"
                 onClick={() => switchMode('recover')}
-                className="w-full text-center text-xs text-slate-500 hover:text-amber-700 transition-colors"
+                className="w-full text-center text-[11px] text-muted-foreground hover:text-primary transition-colors font-mono"
               >
-                忘记密码？
+                [ 忘记密码？ ]
               </button>
             </form>
           ) : (
             <form onSubmit={handleRecover} className="space-y-4">
               {rSuccess ? (
                 <div className="text-center space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto">
-                    <KeyRound className="w-6 h-6 text-emerald-600" />
+                  <div className="w-12 h-12 border border-primary flex items-center justify-center mx-auto">
+                    <KeyRound className="w-6 h-6 text-primary" />
                   </div>
-                  <p className="text-sm text-slate-700">
-                    密码已重置，该恢复码已失效。请使用新密码登录。
+                  <p className="text-[13px] text-foreground font-mono">
+                    <span className="text-primary">[+]</span> 密码已重置，该恢复码已失效。
+                    <br />
+                    请使用新密码登录。
                   </p>
                   <button
                     type="button"
                     onClick={() => switchMode('login')}
-                    className="w-full py-2.5 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 transition-colors"
+                    className="w-full py-2 bg-primary text-primary-foreground text-[13px] font-mono hover:bg-primary/90 transition-colors"
                   >
-                    返回登录
+                    &gt; 返回登录
                   </button>
                 </div>
               ) : (
                 <>
                   <div>
                     <label htmlFor="r-username" className={labelCls}>
-                      用户名
+                      <span className="text-primary">$</span> 用户名
                     </label>
                     <input
                       id="r-username"
@@ -198,7 +229,7 @@ const LoginPage: React.FC = () => {
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setRUsername(e.target.value)
                       }
-                      placeholder="请输入用户名"
+                      placeholder="username"
                       className={inputCls}
                       disabled={rLoading}
                     />
@@ -206,7 +237,7 @@ const LoginPage: React.FC = () => {
 
                   <div>
                     <label htmlFor="r-code" className={labelCls}>
-                      恢复码
+                      <span className="text-primary">$</span> 恢复码
                     </label>
                     <input
                       id="r-code"
@@ -223,7 +254,7 @@ const LoginPage: React.FC = () => {
 
                   <div>
                     <label htmlFor="r-new" className={labelCls}>
-                      新密码
+                      <span className="text-primary">$</span> 新密码
                     </label>
                     <input
                       id="r-new"
@@ -232,7 +263,7 @@ const LoginPage: React.FC = () => {
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setRNewPassword2(e.target.value)
                       }
-                      placeholder="至少 8 位字符"
+                      placeholder="min 8 chars"
                       className={inputCls}
                       disabled={rLoading}
                     />
@@ -240,7 +271,7 @@ const LoginPage: React.FC = () => {
 
                   <div>
                     <label htmlFor="r-confirm" className={labelCls}>
-                      确认新密码
+                      <span className="text-primary">$</span> 确认新密码
                     </label>
                     <input
                       id="r-confirm"
@@ -249,26 +280,30 @@ const LoginPage: React.FC = () => {
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setRConfirm(e.target.value)
                       }
-                      placeholder="再次输入新密码"
+                      placeholder="repeat password"
                       className={inputCls}
                       disabled={rLoading}
                     />
                   </div>
 
-                  {rError && <p className="text-sm text-red-600">{rError}</p>}
+                  {rError && (
+                    <p className="text-[12px] text-destructive font-mono">
+                      <span className="text-destructive">[!]</span> {rError}
+                    </p>
+                  )}
 
                   <button
                     type="submit"
                     disabled={rLoading}
-                    className="w-full py-2.5 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 active:bg-amber-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-2 bg-primary text-primary-foreground text-[13px] font-mono hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {rLoading ? '重置中...' : '重置密码'}
+                    {rLoading ? '重置中...' : '> 重置密码'}
                   </button>
 
                   <button
                     type="button"
                     onClick={() => switchMode('login')}
-                    className="w-full flex items-center justify-center gap-1 text-xs text-slate-500 hover:text-amber-700 transition-colors"
+                    className="w-full flex items-center justify-center gap-1 text-[11px] text-muted-foreground hover:text-primary transition-colors font-mono"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     返回登录
@@ -277,10 +312,11 @@ const LoginPage: React.FC = () => {
               )}
             </form>
           )}
+          </div>
         </div>
 
-        <p className="text-xs text-slate-400 text-center mt-6">
-          © 2026 知行工作室
+        <p className="text-[11px] text-muted-foreground text-center mt-5 font-mono">
+          © 2026 知行同步助手
         </p>
       </div>
     </div>

@@ -434,8 +434,8 @@ const CommunicationsPage: React.FC = () => {
   return (
     <div className="space-y-4 md:space-y-5">
       <div>
-        <h2 className="text-2xl font-semibold text-slate-900">沟通记录</h2>
-        <p className="text-sm text-slate-600 mt-1">短信与通话的云端备份</p>
+        <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>沟通记录</h2>
+        <p className="text-sm text-muted-foreground mt-1 break-words">短信与通话的云端备份</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

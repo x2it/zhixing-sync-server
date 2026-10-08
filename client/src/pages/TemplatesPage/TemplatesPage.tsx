@@ -458,11 +458,11 @@ const TemplatesPage: React.FC = () => {
 
   if (loading && templates.length === 0) {
     return (
-      <div className="space-y-6 p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">模板方案</h2>
-            <p className="text-sm text-slate-600 mt-1">加载中...</p>
+      <div className="space-y-6 p-4 md:p-6">
+        <div className="page-head">
+          <div className="min-w-0">
+            <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>模板方案</h2>
+            <p className="text-sm text-muted-foreground mt-1">加载中...</p>
           </div>
         </div>
       </div>
@@ -470,16 +470,19 @@ const TemplatesPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 p-5" data-ai-section-type="card-list">
+    <div className="space-y-6 p-4 md:p-5" data-ai-section-type="card-list">
       {/* 页面标题 + 新增按钮 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-medium text-foreground">模板方案</h2>
+      <div className="page-head">
+        <div className="min-w-0">
+          <h2 className="page-title">
+            <span className="text-primary/55 select-none" aria-hidden="true">$</span>
+            模板方案
+          </h2>
           <p className="text-sm text-muted-foreground mt-1">
             选择或自定义人脉分层与标签体系
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="page-head-actions">
           <AlertDialog open={resetAllOpen} onOpenChange={setResetAllOpen}>
             <AlertDialogTrigger asChild>
               <Button variant="outline" size="sm" className="text-destructive border-destructive/40">

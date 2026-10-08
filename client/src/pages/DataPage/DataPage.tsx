@@ -537,10 +537,10 @@ const DataPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 p-4 md:p-6">
       <div>
-        <h2 className="text-2xl font-semibold text-slate-900">数据管理</h2>
-        <p className="text-sm text-slate-600 mt-1">
+        <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>数据管理</h2>
+        <p className="text-sm text-muted-foreground mt-1">
           数据导入导出与备份
         </p>
       </div>
