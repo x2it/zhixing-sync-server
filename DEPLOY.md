@@ -1,6 +1,6 @@
 # 自建部署指南
 
-把「知行朋友圈」从托管环境迁到你自己的服务器。整套是标准栈：**NestJS + React + PostgreSQL**，一台 2 核 4G 的云服务器就能跑。
+把「知行同步助手」从托管环境迁到你自己的服务器。整套是标准栈：**NestJS + React + PostgreSQL**，一台 2 核 4G 的云服务器就能跑。
 
 ---
 
@@ -19,8 +19,8 @@
 
 ```bash
 # 1. 拉代码
-git clone https://github.com/x2it/zhixing-circle.git
-cd zhixing-circle
+git clone https://github.com/x2it/zhixing-sync-server.git
+cd zhixing-sync-server
 
 # 2. 装依赖
 npm install
@@ -68,8 +68,8 @@ Description=Zhixing Circle
 After=network.target postgresql.service
 
 [Service]
-WorkingDirectory=/opt/zhixing-circle
-EnvironmentFile=/opt/zhixing-circle/.env
+WorkingDirectory=/opt/zhixing-sync-server
+EnvironmentFile=/opt/zhixing-sync-server/.env
 ExecStart=/usr/bin/node dist/server/main.js
 Restart=always
 User=root
@@ -118,7 +118,7 @@ bash scripts/add-user.sh admin '新密码' --reset-pw      # 重置密码
 ```
 ✅ 账号已创建
    用户名   ：admin
-   API Key  ：zx_8f62ca00e13a1a829a3bdd20219a0af1
+   API Key  ：zx_你的密钥
 ```
 
 也可以手工操作（密码用 bcrypt 哈希，cost=10，与 auth.service 保持一致）：
