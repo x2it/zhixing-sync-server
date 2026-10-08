@@ -125,14 +125,9 @@ const LoginPage: React.FC = () => {
                 <span className="text-primary">知行同步助手</span>
                 <span className="inline-block w-2 h-4 bg-primary term-cursor align-middle" aria-hidden="true" />
               </h1>
-              {/* 工作台副标题与 APP 端 v2.7.13 定稿对齐：连接 · 记录 · 同步 */}
-              <p className="text-[11px] text-primary/70 mt-1.5 font-mono tracking-wide">
-                连接 · 记录 · 同步
-              </p>
-              <p className="text-[11px] text-muted-foreground mt-1 font-mono">
-                {mode === 'login'
-                  ? '// Only the next call. 专注下一通电话，其余交给系统。'
-                  : '// 使用恢复码重置登录密码'}
+              {/* 单行 slogan，与 APP 端 v2.7.13 定稿对齐：连接 · 记录 · 同步 */}
+              <p className="text-[11px] text-muted-foreground mt-1.5 font-mono">
+                {mode === 'login' ? '连接 · 记录 · 同步' : '// 使用恢复码重置登录密码'}
               </p>
             </div>
 

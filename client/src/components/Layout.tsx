@@ -108,10 +108,10 @@ const Layout: React.FC = () => {
   const currentTitle = pageTitleMap[location.pathname] ?? '知行同步助手';
 
   useEffect(() => {
-    // 按页面动态 title；工作台页对齐 APP 端命名「知行同步助手 // 工作台」
+    // 按页面动态 title；工作台页显示「连接 · 记录 · 同步」呼应 App 端 slogan
     document.title =
       location.pathname === '/dashboard'
-        ? '知行同步助手 // 工作台'
+        ? '知行同步助手 · 连接 · 记录 · 同步'
         : `${currentTitle} · 知行同步助手`;
   }, [location.pathname, currentTitle]);
 

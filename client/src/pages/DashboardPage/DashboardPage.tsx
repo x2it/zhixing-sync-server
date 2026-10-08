@@ -245,11 +245,8 @@ const DashboardPage: React.FC = () => {
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>知行同步助手<span className="text-muted-foreground/50 select-none">//</span>工作台</h2>
-            <p className="text-xs md:text-sm text-muted-foreground mt-1">
-              <span className="text-primary/70">连接 · 记录 · 同步</span>
-              <span className="mx-1.5 text-muted-foreground/40">|</span>联系人分层与跟进进度总览
-            </p>
+            <h2 className="page-title"><span className="text-primary/55 select-none" aria-hidden="true">$</span>工作台</h2>
+            <p className="text-xs md:text-sm text-muted-foreground mt-1">连接 · 记录 · 同步</p>
           </div>
         </div>
         <div className="flex items-center gap-3 flex-wrap">

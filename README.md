@@ -2,8 +2,6 @@
 
 > **连接 · 记录 · 同步**
 >
-> **Only the next call.** — 专注下一通电话，其余交给系统。
->
 > 个人人脉管理工具 —— 分层管理联系人、标签化运营关系、云端同步多端数据。
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)

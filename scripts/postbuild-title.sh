@@ -8,10 +8,8 @@ set -e
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
 HTML="$DIR/dist/client/client/index.html"
 
-# 与 APP 端对齐的 slogan 层级：
-#   品牌 slogan：Only the next call. 专注下一通电话，其余交给系统
-#   工作台副标题：连接 · 记录 · 同步（APP 端 v2.7.13 定稿）
-DESC="知行同步助手 — 连接 · 记录 · 同步。Only the next call. 专注下一通电话，其余交给系统。客户分层 × 标签分组 × 跟进提醒，专心下一通电话。"
+# 与 APP 端对齐的 slogan：连接 · 记录 · 同步（APP 端 v2.7.13 定稿）
+DESC="知行同步助手 — 连接 · 记录 · 同步。客户分层 × 标签分组 × 跟进提醒，个人人脉关系管理工具。"
 
 if [ -f "$HTML" ]; then
   sed -i 's|<title>{{appName}}</title>|<title>知行同步助手</title>|' "$HTML"
