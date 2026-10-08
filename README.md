@@ -4,6 +4,10 @@
 >
 > 个人人脉管理工具 —— 分层管理联系人、标签化运营关系、云端同步多端数据。
 
+<img src="https://raw.githubusercontent.com/x2it/zhixing-sync-server/main/banner.png" alt="知行同步助手 · Zhixing Circle" width="100%">
+
+**Zhixing Circle** is a self-hosted personal-network CRM: tiered contact management (S/A/B/C/D/V), a tag system, template-driven industry presets, follow-up tracking and bidirectional cloud sync between devices. This repository holds the **NestJS server + React Web frontend**; the Android client lives in [x2it/zhixing-sync-assistant](https://github.com/x2it/zhixing-sync-assistant).
+
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-10-red.svg)](https://nestjs.com/)
@@ -190,7 +194,7 @@ zhixing-sync-server/
 │   │   ├── templates/             # 模板体系（预设/派生/重置）
 │   │   ├── messages/              # 短信
 │   │   ├── calls/                 # 通话记录
-│   │   ├── batches/               # 导入批次（合并/回滚）
+│   │   ├── batches/             # 导入批次（合并/回滚）
 │   │   ├── data/                  # 数据治理（去重/清洗/导入导出）
 │   │   ├── sync-upload/           # 分片上传通道
 │   │   ├── sync-status/           # 设备握手 + 同步健康
@@ -243,7 +247,7 @@ zhixing-sync-server/
 
 ## License
 
-[AGPL-3.0](LICENSE) © 2026 知行工作室
+[AGPL-3.0](LICENSE) © 2026 知行工作室 Zhixing Studio · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
 
 本项目采用 GNU Affero 通用公共许可证 v3.0。简单说：
 
