@@ -133,8 +133,8 @@
 
 ```bash
 # 1. 克隆
-git clone https://github.com/x2it/zhixing-circle.git
-cd zhixing-circle
+git clone https://github.com/x2it/zhixing-sync-server.git
+cd zhixing-sync-server
 
 # 2. 安装依赖
 npm install
@@ -176,7 +176,7 @@ npm start             # 启动服务
 ## 项目结构
 
 ```
-zhixing-circle/
+zhixing-sync-server/
 ├── client/                        # Web 前端
 │   └── src/
 │       ├── pages/                 # 页面（仪表盘/联系人/沟通/标签/朋友圈/数据/模板）

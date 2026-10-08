@@ -19,8 +19,8 @@
 
 ```bash
 # 1. 拉代码
-git clone https://github.com/x2it/zhixing-circle.git
-cd zhixing-circle
+git clone https://github.com/x2it/zhixing-sync-server.git
+cd zhixing-sync-server
 
 # 2. 装依赖
 npm install
