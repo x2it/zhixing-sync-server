@@ -4,6 +4,7 @@ import {
   Post,
   Put,
   Delete,
+  HttpCode,
   Body,
   Param,
   Query,
@@ -119,6 +120,7 @@ export class MessagesController {
    * body { "ids": [...] }，≤200/批，用户隔离，幂等（App 只看 2xx）。
    */
   @Post('messages/batch-delete')
+  @HttpCode(200)
   async batchDelete(@Body() body: { ids?: unknown }): Promise<{ deleted: number }> {
     if (!Array.isArray(body?.ids) || body.ids.length === 0) {
       throw new BadRequestException('ids 必须为非空数组');

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { SESSION_COOKIE, SESSION_TTL_MS } from '@server/common/middleware/auth.middleware';
@@ -84,10 +84,17 @@ export class AuthController {
 
   /** 修改密码（需登录） */
   @Post('change-password')
-  async changePassword(@Body() body: ChangePasswordBody) {
+  @HttpCode(200)
+  async changePassword(@Req() req: Request, @Body() body: ChangePasswordBody) {
     const ctx = UserContext.get();
     if (!ctx) throw new UnauthorizedException('未登录');
-    await this.authService.changePassword(ctx.userId, body.oldPassword || '', body.newPassword || '');
+    const currentToken = readCookie(req, SESSION_COOKIE);
+    await this.authService.changePassword(
+      ctx.userId,
+      body.oldPassword || '',
+      body.newPassword || '',
+      currentToken,
+    );
     return { success: true };
   }
 

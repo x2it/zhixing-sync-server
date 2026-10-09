@@ -1,6 +1,6 @@
 import { Inject, Injectable, UnauthorizedException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { DRIZZLE_DATABASE, type PostgresJsDatabase } from '@lark-apaas/fullstack-nestjs-core';
-import { eq, and, gt, isNull } from 'drizzle-orm';
+import { eq, and, gt, isNull, sql } from 'drizzle-orm';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import { users, sessions, recoveryCodes } from '@server/database/schema';
@@ -96,7 +96,12 @@ export class AuthService {
 
   // ===== 修改密码 =====
 
-  async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<void> {
+  async changePassword(
+    userId: string,
+    oldPassword: string,
+    newPassword: string,
+    currentToken?: string,
+  ): Promise<void> {
     if (!newPassword || newPassword.length < 8) {
       throw new BadRequestException('新密码至少需要 8 位字符');
     }
@@ -110,7 +115,14 @@ export class AuthService {
       .update(users)
       .set({ passwordHash: newHash, updatedAt: new Date() })
       .where(eq(users.id, userId));
-    // 改密后踢掉其它会话（保留当前会话由 controller 处理——当前会话 cookie 不变）
+    // 改密后踢掉其它会话：保留发起本次改密的当前会话，其余一律失效，
+    // 防止密码泄露期间产生的其它会话在改密后继续可用。
+    const currentHash = currentToken ? hashToken(currentToken) : null;
+    await this.db.delete(sessions).where(
+      currentHash
+        ? and(eq(sessions.userId, userId), sql`${sessions.tokenHash} <> ${currentHash}`)
+        : eq(sessions.userId, userId),
+    );
   }
 
   // ===== 恢复码找回 =====

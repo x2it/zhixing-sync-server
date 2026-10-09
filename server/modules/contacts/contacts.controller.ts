@@ -175,6 +175,7 @@ export class ContactsController {
    * 契约与 DELETE 版完全一致：body { "ids": [...] }，≤200/批，用户隔离，幂等。
    */
   @Post('batch-delete')
+  @HttpCode(200)
   async batchDeletePost(@Body() body: { ids?: unknown }): Promise<{ deleted: number }> {
     return this.batchDelete(body);
   }
