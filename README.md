@@ -1,5 +1,7 @@
 # 知行同步助手 · Zhixing Circle
 
+**Current version / 当前版本：2.3.0**（与根 `package.json` 的 `version` 一致）
+
 > **连接 · 记录 · 同步**
 >
 > 个人人脉管理工具 —— 分层管理联系人、标签化运营关系、云端同步多端数据。
