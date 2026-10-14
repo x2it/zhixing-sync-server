@@ -249,7 +249,7 @@ zhixing-sync-server/
 
 ## License
 
-[AGPL-3.0](LICENSE) © 2026 知行工作室 Zhixing Studio · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
+[AGPL-3.0](LICENSE) © 2026 知行工作室 · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
 
 本项目采用 GNU Affero 通用公共许可证 v3.0。简单说：
 
