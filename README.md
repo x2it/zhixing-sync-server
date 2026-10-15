@@ -249,8 +249,6 @@ zhixing-sync-server/
 
 ## License
 
-[AGPL-3.0](LICENSE) © 2026 知行工作室 · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
-
 本项目采用 GNU Affero 通用公共许可证 v3.0。简单说：
 
 - ✅ 可自由使用、修改、分发
@@ -260,3 +258,5 @@ zhixing-sync-server/
 
 > 选择 AGPL 是因为它处理的是用户敏感数据（联系人/短信/通话），
 > 我们希望任何基于它的服务化改造都保持开源，让用户能审计自己的数据流向。
+
+[AGPL-3.0](LICENSE) © 2026 知行工作室 · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
