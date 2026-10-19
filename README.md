@@ -204,7 +204,7 @@ zhixing-sync-server/
 │   ├── common/                    # 中间件/守卫/工具
 │   └── database/                  # Drizzle schema
 ├── shared/
-│   └── api.interface.ts           # ⭐ 前后端共享类型契约
+│   └── api.interface.ts           # 前后端共享类型契约
 └── docs/                          # 文档
 ```
 
