@@ -1,4 +1,4 @@
-# 知行同步助手 · Zhixing Circle
+# 知行同步助手 · Zhixing Sync Server
 
 **Current version / 当前版本：2.3.0**（与根 `package.json` 的 `version` 一致）
 
@@ -6,9 +6,9 @@
 >
 > 个人人脉管理工具 —— 分层管理联系人、标签化运营关系、云端同步多端数据。
 
-<img src="https://raw.githubusercontent.com/x2it/zhixing-sync-server/main/banner.png" alt="知行同步助手 · Zhixing Circle" width="100%">
+<img src="https://raw.githubusercontent.com/x2it/zhixing-sync-server/main/banner.png" alt="知行同步助手 · Zhixing Sync Server" width="100%">
 
-**Zhixing Circle** is a self-hosted personal-network CRM: tiered contact management (S/A/B/C/D/V), a tag system, template-driven industry presets, follow-up tracking and bidirectional cloud sync between devices. This repository holds the **NestJS server + React Web frontend**; the Android client lives in [x2it/zhixing-sync-assistant](https://github.com/x2it/zhixing-sync-assistant).
+**Zhixing Sync Server** is a self-hosted personal-network CRM: tiered contact management (S/A/B/C/D/V), a tag system, template-driven industry presets, follow-up tracking and bidirectional cloud sync between devices. This repository holds the **NestJS server + React Web frontend**; the Android client lives in [x2it/zhixing-sync-assistant](https://github.com/x2it/zhixing-sync-assistant).
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
@@ -131,7 +131,7 @@
 
 ### 环境要求
 
-- Node.js 20+
+- Node.js 22+
 - PostgreSQL 14+
 - npm 10+
 

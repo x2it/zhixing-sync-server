@@ -64,7 +64,7 @@ node dist/server/main.js
 ```ini
 # /etc/systemd/system/zhixing.service
 [Unit]
-Description=Zhixing Circle
+Description=Zhixing Sync Server
 After=network.target postgresql.service
 
 [Service]
