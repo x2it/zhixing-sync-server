@@ -233,7 +233,7 @@ zhixing-sync-server/
 
 ## 与 TMA 的关系
 
-[**TMA（电话营销助理）**](https://github.com/x2it/TMA) 是同一作者的另一个开源项目 —— 面向房产经纪人的 Android 电销助手，专注「拨号 → 登记 → 下一位」的外呼作业闭环，数据全部本地存储。
+[**TMA（电话营销助理）**](https://github.com/x2it/tma-telemarketing-assistant) 是同一作者的另一个开源项目 —— 面向房产经纪人的 Android 电销助手，专注「拨号 → 登记 → 下一位」的外呼作业闭环，数据全部本地存储。
 
 两个项目**互补而非替代**：
 
